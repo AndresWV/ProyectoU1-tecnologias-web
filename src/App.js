@@ -1,25 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import $ from 'jquery';
+import '../node_modules/font-awesome/css/font-awesome.min.css'; 
+import React, { Component } from 'react'
+import './SideBarCss.css'
+import SideBar from './SideBar';
+export default class App extends Component{
+  jQuerycode = () => {
+    $('.btn').click(function(){
+    $(this).toggleClass("click");
+    $('.sidebar').toggleClass("show");
+    });
+    
+    
+    $('.sidebar ul li a').click(function(){
+    var id = $(this).attr('id');
+    $('nav ul li ul.item-show-'+id).toggleClass("show");
+    $('nav ul li #'+id+' span').toggleClass("rotate");
+    
+    });
+    
+    $('nav ul li').click(function(){
+    $(this).addClass("active").siblings().removeClass("active");
+    });
+  }
+  componentDidMount(){
+    this.jQuerycode()
+  }
+  render() {
+    return (
+      <div className="App">
+        <SideBar />
+      </div>
+    );
+  }
 }
 
-export default App;
